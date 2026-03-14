@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winpowr — V2 White Editorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FFFFFF;--off-white:#F8F7F4;--surface:#F1EDE6;
+  --ink:#1A1A1A;--ink-mid:#3D3D3D;--ink-light:#767676;
+  --sage:#4A6741;--sage-light:#6B8F62;--sage-pale:#EEF3EC;
+  --teal:#2E5F6B;--teal-light:#EBF3F5;
+  --border:#E2DDD6;--border-dark:#C8C0B4;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:'Inter',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden}
+/* ANNOUNCE BAR */
+.announce{background:var(--sage);color:#fff;text-align:center;padding:10px;font-size:12px;letter-spacing:0.1em}
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border);padding:0 60px;display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:var(--ink);text-decoration:none;letter-spacing:0.04em}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:var(--ink-light);text-decoration:none;font-size:13px;font-weight:400;transition:color 0.2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-cta{background:var(--sage);color:#fff;border:none;padding:10px 24px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.08em;cursor:pointer;text-decoration:none;border-radius:2px;transition:background 0.2s}
+.nav-cta:hover{background:var(--sage-light)}
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 110px)}
+.hero-left{padding:80px 60px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border)}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--sage-pale);color:var(--sage);font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:6px 14px;margin-bottom:36px;border-radius:2px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(46px,5vw,68px);font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:24px}
+.hero h1 em{font-style:italic;color:var(--sage)}
+.hero-sub{font-size:16px;color:var(--ink-light);max-width:400px;margin-bottom:40px;line-height:1.75;font-weight:300}
+.hero-actions{display:flex;gap:16px;align-items:center;margin-bottom:56px}
+.btn-dark{background:var(--ink);color:var(--white);border:none;padding:14px 36px;font-size:13px;font-weight:500;letter-spacing:0.08em;cursor:pointer;text-decoration:none;display:inline-block;border-radius:2px;transition:background 0.2s}
+.btn-dark:hover{background:var(--ink-mid)}
+.btn-outline{background:transparent;color:var(--ink);border:1px solid var(--border-dark);padding:13px 28px;font-size:13px;font-weight:400;cursor:pointer;text-decoration:none;display:inline-block;border-radius:2px;transition:all 0.2s}
+.btn-outline:hover{border-color:var(--ink);background:var(--off-white)}
+.hero-proof{display:flex;gap:40px}
+.proof-item strong{display:block;font-size:24px;font-weight:400;color:var(--ink);font-family:'Playfair Display',serif}
+.proof-item span{font-size:11px;color:var(--ink-light);letter-spacing:0.06em;text-transform:uppercase;margin-top:2px;display:block}
+.hero-right{background:var(--surface);display:flex;flex-direction:column}
+.hero-product-main{flex:1;display:flex;align-items:center;justify-content:center;position:relative;padding:60px}
+.hero-product-card{background:var(--white);border:1px solid var(--border);padding:32px;width:280px;text-align:center}
+.product-badge-hero{background:var(--sage-pale);color:var(--sage);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;display:inline-block;margin-bottom:20px;font-weight:500}
+.hero-product-symbol{font-size:72px;color:var(--sage);opacity:0.25;margin-bottom:16px;display:block}
+.hero-product-name{font-family:'Playfair Display',serif;font-size:17px;color:var(--ink);margin-bottom:6px}
+.hero-product-desc{font-size:12px;color:var(--ink-light);line-height:1.6;margin-bottom:20px}
+.hero-product-price{font-size:20px;font-family:'Playfair Display',serif;color:var(--sage);font-weight:500}
+.hero-mini-products{border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr)}
+.mini-product{padding:20px;text-align:center;border-right:1px solid var(--border);cursor:pointer;transition:background 0.2s;text-decoration:none;display:block}
+.mini-product:last-child{border-right:none}
+.mini-product:hover{background:var(--white)}
+.mini-symbol{font-size:24px;color:var(--sage);opacity:0.4;display:block;margin-bottom:6px}
+.mini-name{font-size:10px;color:var(--ink-light);letter-spacing:0.06em;text-transform:uppercase}
+/* TRUST */
+.trust-strip{background:var(--ink);display:grid;grid-template-columns:repeat(4,1fr);divide-x:1px solid rgba(255,255,255,0.1)}
+.trust-item-strip{padding:22px 32px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:14px}
+.trust-item-strip:last-child{border-right:none}
+.ti-icon{font-size:18px;color:rgba(255,255,255,0.4)}
+.ti-text strong{display:block;font-size:13px;font-weight:500;color:#fff}
+.ti-text span{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.04em}
+/* SECTIONS */
+.section-white{padding:96px 60px}
+.section-surface{padding:96px 60px;background:var(--off-white)}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:block}
+.h2{font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,48px);font-weight:400;line-height:1.15;color:var(--ink);margin-bottom:16px}
+.h2 em{font-style:italic;color:var(--sage)}
+/* PHILOSOPHY */
+.philosophy-wrap{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start}
+.philosophy-sticky{position:sticky;top:90px}
+.pillar-list{display:flex;flex-direction:column;gap:0}
+.pillar-item{padding:32px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:start}
+.pillar-num-sm{font-family:'Playfair Display',serif;font-size:13px;color:var(--ink-light);padding-top:4px}
+.pillar-body h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--ink);margin-bottom:8px}
+.pillar-body p{font-size:14px;color:var(--ink-light);line-height:1.75}
+/* PRODUCTS */
+.products-full{padding:96px 60px;background:var(--surface)}
+.products-intro{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+.product-grid-v2{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.product-card-v2{background:var(--white);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:all 0.25s;text-decoration:none;display:block}
+.product-card-v2:hover{box-shadow:0 12px 40px rgba(0,0,0,0.08);transform:translateY(-2px)}
+.pc-image{aspect-ratio:1;background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:56px;color:var(--sage);opacity:0.25;border-bottom:1px solid var(--border)}
+.pc-body{padding:24px}
+.pc-tag{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px}
+.pc-name{font-family:'Playfair Display',serif;font-size:18px;color:var(--ink);margin-bottom:8px;line-height:1.3}
+.pc-desc{font-size:13px;color:var(--ink-light);line-height:1.65;margin-bottom:20px}
+.pc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border)}
+.pc-price{font-family:'Playfair Display',serif;font-size:20px;color:var(--ink)}
+.pc-btn{background:var(--sage);color:#fff;font-size:11px;letter-spacing:0.1em;padding:8px 18px;text-transform:uppercase;font-weight:500;border:none;cursor:pointer;border-radius:2px}
+/* EXPERT */
+.expert-v2{display:grid;grid-template-columns:5fr 7fr;gap:0;align-items:stretch}
+.expert-img-col{background:var(--surface);display:flex;align-items:center;justify-content:center;min-height:520px;position:relative;border-right:1px solid var(--border)}
+.expert-symbol{font-size:100px;color:var(--sage);opacity:0.12}
+.expert-tag-v2{position:absolute;bottom:32px;left:32px;background:var(--white);border:1px solid var(--border);padding:16px 20px}
+.expert-tag-v2 strong{display:block;font-family:'Playfair Display',serif;font-size:16px;color:var(--ink)}
+.expert-tag-v2 span{font-size:11px;color:var(--ink-light);text-transform:uppercase;letter-spacing:0.08em}
+.expert-text-col{padding:80px 60px;display:flex;flex-direction:column;justify-content:center;background:var(--white)}
+blockquote.v2{font-family:'Playfair Display',serif;font-size:clamp(20px,2vw,26px);font-style:italic;line-height:1.55;color:var(--ink);margin-bottom:28px;padding-left:0;border:none}
+blockquote.v2::before{content:'"';display:block;font-size:64px;color:var(--sage);opacity:0.3;line-height:0.5;margin-bottom:24px;font-family:'Playfair Display',serif}
+.expert-meta strong{font-size:14px;font-weight:500;color:var(--ink)}
+.expert-meta span{font-size:12px;color:var(--ink-light);display:block;margin-top:3px;letter-spacing:0.04em}
+/* REVIEWS */
+.reviews-v2{padding:96px 60px;background:var(--off-white)}
+.reviews-grid-v2{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.review-v2{background:var(--white);border:1px solid var(--border);padding:32px}
+.stars-v2{display:flex;gap:3px;margin-bottom:14px}
+.star-v2{width:12px;height:12px;background:var(--sage);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.review-text-v2{font-size:14px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;font-style:italic}
+.reviewer-info{display:flex;align-items:center;gap:12px}
+.reviewer-avatar{width:36px;height:36px;background:var(--sage-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--sage)}
+.reviewer-name{font-size:13px;font-weight:500;color:var(--ink)}
+.reviewer-product{font-size:11px;color:var(--ink-light);margin-top:1px}
+/* CTA */
+.cta-v2{background:var(--sage);padding:100px 60px;text-align:center}
+.cta-v2 .h2{color:#fff}
+.cta-v2 .h2 em{color:rgba(255,255,255,0.7)}
+.cta-sub-v2{font-size:15px;color:rgba(255,255,255,0.7);margin-bottom:40px}
+.btn-white{background:#fff;color:var(--sage);border:none;padding:14px 36px;font-size:13px;font-weight:500;letter-spacing:0.08em;cursor:pointer;text-decoration:none;display:inline-block;border-radius:2px;transition:all 0.2s}
+.btn-white:hover{background:var(--sage-pale)}
+/* FOOTER */
+footer.v2{background:var(--ink);padding:64px 60px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px}
+.footer-logo-v2{font-family:'Playfair Display',serif;font-size:20px;color:#fff;text-decoration:none;display:block;margin-bottom:14px}
+.footer-brand-v2 p{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:220px}
+.fcol h4{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:18px;font-weight:500}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:10px}
+.fcol a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s}
+.fcol a:hover{color:#fff}
+.footer-bottom-v2{background:var(--ink);border-top:1px solid rgba(255,255,255,0.07);padding:20px 60px;display:flex;justify-content:space-between;align-items:center}
+.footer-bottom-v2 p{font-size:11px;color:rgba(255,255,255,0.3)}
+.cert-strip{display:flex;gap:12px}
+.cert-v2{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.15);padding:4px 10px;color:rgba(255,255,255,0.4)}
+.view-all-v2{font-size:12px;font-weight:500;color:var(--sage);text-decoration:none;display:flex;align-items:center;gap:6px;letter-spacing:0.04em}
+.view-all-v2:hover{text-decoration:underline}
+@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+.hero-left>*{animation:slideIn 0.7s ease forwards;opacity:0}
+.hero-left>*:nth-child(1){animation-delay:0.05s}
+.hero-left>*:nth-child(2){animation-delay:0.18s}
+.hero-left>*:nth-child(3){animation-delay:0.3s}
+.hero-left>*:nth-child(4){animation-delay:0.42s}
+.hero-left>*:nth-child(5){animation-delay:0.54s}
+</style>
+</head>
+<body>
+
+<div class="announce">Free shipping on orders above ₹999 · COD Available · 30-Day Money Back Guarantee</div>
+
+<nav>
+  <a href="#" class="nav-logo">Winpowr</a>
+  <ul class="nav-links">
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">Our Science</a></li>
+    <li><a href="#">Experts</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" style="font-size:13px;color:#767676;text-decoration:none">Cart (0)</a>
+    <a href="#" class="nav-cta">Shop Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">✦ Premium Wellness — India</div>
+    <h1>Your health,<br>held to a <em>higher standard.</em></h1>
+    <p class="hero-sub">Science-formulated supplements for urban professionals who demand transparency, clinical dosing, and results they can measure.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-dark">Shop the Range</a>
+      <a href="#" class="btn-outline">Take the Quiz</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item"><strong>12K+</strong><span>Customers nationwide</span></div>
+      <div class="proof-item"><strong>4.8★</strong><span>Average rating</span></div>
+      <div class="proof-item"><strong>21 Days</strong><span>To visible results</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-product-main">
+      <div class="hero-product-card">
+        <div class="product-badge-hero">Best Seller</div>
+        <span class="hero-product-symbol">◆</span>
+        <div class="hero-product-name">DiaControl</div>
+        <div class="hero-product-desc">Natural blood sugar & glucose management with 9 clinically-tested botanicals</div>
+        <div class="hero-product-price">₹2,499</div>
+      </div>
+    </div>
+    <div class="hero-mini-products">
+      <a href="#" class="mini-product"><span class="mini-symbol">◈</span><div class="mini-name">Glutathione</div></a>
+      <a href="#" class="mini-product"><span class="mini-symbol">◉</span><div class="mini-name">Biotin</div></a>
+      <a href="#" class="mini-product"><span class="mini-symbol">◇</span><div class="mini-name">Fish Oil</div></a>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="trust-item-strip"><span class="ti-icon">✦</span><div class="ti-text"><strong>FSSAI Certified</strong><span>Regulatory approved</span></div></div>
+  <div class="trust-item-strip"><span class="ti-icon">◈</span><div class="ti-text"><strong>GMP Manufactured</strong><span>Quality assured</span></div></div>
+  <div class="trust-item-strip"><span class="ti-icon">⬡</span><div class="ti-text"><strong>Third-Party Tested</strong><span>Every batch verified</span></div></div>
+  <div class="trust-item-strip"><span class="ti-icon">◉</span><div class="ti-text"><strong>30-Day Guarantee</strong><span>No questions asked</span></div></div>
+</div>
+
+<section class="section-white">
+  <div class="philosophy-wrap">
+    <div class="philosophy-sticky">
+      <span class="eyebrow">Our Philosophy</span>
+      <h2 class="h2">Why serious wellness professionals choose <em>Winpowr.</em></h2>
+      <p style="font-size:14px;color:#767676;line-height:1.8;margin-top:16px">We built Winpowr because most supplements are formulated for shelf appeal, not results. We flipped that entirely.</p>
+    </div>
+    <div class="pillar-list">
+      <div class="pillar-item"><div class="pillar-num-sm">01</div><div class="pillar-body"><h3>Clinical Dosing, Not Label Dosing</h3><p>Every active ingredient is dosed at the exact level shown to produce results in peer-reviewed studies. We publish our complete formula — no proprietary blends, no hiding.</p></div></div>
+      <div class="pillar-item"><div class="pillar-num-sm">02</div><div class="pillar-body"><h3>Pharmaceutical-Grade Sourcing</h3><p>Our raw materials are sourced exclusively from ISO-certified suppliers and independently verified for purity, potency, and the absence of heavy metals and contaminants.</p></div></div>
+      <div class="pillar-item"><div class="pillar-num-sm">03</div><div class="pillar-body"><h3>Results in 21 Days, Guaranteed</h3><p>We're confident enough in our formulas to back every purchase with a full 30-day money-back guarantee. No gatekeeping. No hoops. Your results or your money back.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="products-full">
+  <div class="products-intro">
+    <div>
+      <span class="eyebrow">The Collection</span>
+      <h2 class="h2">Formulas built<br>for <em>real goals.</em></h2>
+    </div>
+    <a href="#" class="view-all-v2">View all products →</a>
+  </div>
+  <div class="product-grid-v2">
+    <a href="#" class="product-card-v2"><div class="pc-image">◆</div><div class="pc-body"><div class="pc-tag">Blood Sugar Support</div><div class="pc-name">DiaControl — Natural Glucose Management</div><p class="pc-desc">9 clinically-studied botanicals to support healthy blood sugar and metabolic balance.</p><div class="pc-footer"><div class="pc-price">₹2,499</div><div class="pc-btn">Add to Cart</div></div></div></a>
+    <a href="#" class="product-card-v2"><div class="pc-image">◈</div><div class="pc-body"><div class="pc-tag">Skin & Cellular Health</div><div class="pc-name">Glutathione + Ascorbic Acid Complex</div><p class="pc-desc">500mg reduced glutathione with enhanced bioavailability for radiant, protected skin.</p><div class="pc-footer"><div class="pc-price">₹3,199</div><div class="pc-btn">Add to Cart</div></div></div></a>
+    <a href="#" class="product-card-v2"><div class="pc-image">◉</div><div class="pc-body"><div class="pc-tag">Hair & Structural</div><div class="pc-name">Biotin Collagen & Keratin 25000mcg</div><p class="pc-desc">Complete structural complex for hair strength, nail integrity, and skin elasticity from within.</p><div class="pc-footer"><div class="pc-price">₹2,199</div><div class="pc-btn">Add to Cart</div></div></div></a>
+  </div>
+</section>
+
+<div class="expert-v2">
+  <div class="expert-img-col">
+    <div class="expert-symbol">✦</div>
+    <div class="expert-tag-v2"><strong>Dr. Priya Sharma</strong><span>MD Nutrition · AIIMS Alumnus</span></div>
+  </div>
+  <div class="expert-text-col">
+    <span class="eyebrow">From Our Expert Panel</span>
+    <blockquote class="v2">Most supplements give you 10% of what the label claims. Winpowr's clinical dosing philosophy is the standard the entire industry should be held to.</blockquote>
+    <div class="expert-meta"><strong>Dr. Priya Sharma</strong><span>MD Clinical Nutrition · 14 Years Practice · AIIMS New Delhi</span></div>
+    <div style="margin-top:28px"><a href="#" class="view-all-v2">Meet the full expert panel →</a></div>
+  </div>
+</div>
+
+<section class="reviews-v2">
+  <span class="eyebrow">What customers say</span>
+  <h2 class="h2">Real people.<br><em>Real results.</em></h2>
+  <div class="reviews-grid-v2">
+    <div class="review-v2"><div class="stars-v2"><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div></div><p class="review-text-v2">"Three months on DiaControl and my fasting glucose is down 18 points. My doctor was genuinely surprised. This is the real deal."</p><div class="reviewer-info"><div class="reviewer-avatar">RM</div><div><div class="reviewer-name">Rahul M.</div><div class="reviewer-product">DiaControl · Delhi · Verified</div></div></div></div>
+    <div class="review-v2"><div class="stars-v2"><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div></div><p class="review-text-v2">"The Glutathione formula is unlike anything I've tried. Skin brightness was visible in 3 weeks. Worth every rupee at this quality level."</p><div class="reviewer-info"><div class="reviewer-avatar">SK</div><div><div class="reviewer-name">Sneha K.</div><div class="reviewer-product">Glutathione · Mumbai · Verified</div></div></div></div>
+    <div class="review-v2"><div class="stars-v2"><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div><div class="star-v2"></div></div><p class="review-text-v2">"I've tried 6 different Biotin brands. Winpowr is the first where I actually saw significant hair thickness change. The dosage is no joke."</p><div class="reviewer-info"><div class="reviewer-avatar">AR</div><div><div class="reviewer-name">Anjali R.</div><div class="reviewer-product">Biotin Complex · Bangalore · Verified</div></div></div></div>
+  </div>
+</section>
+
+<div class="cta-v2">
+  <span class="eyebrow" style="color:rgba(255,255,255,0.5)">Start Today</span>
+  <h2 class="h2">Not sure where to start?<br><em>We'll tell you exactly.</em></h2>
+  <p class="cta-sub-v2">Take our 2-minute wellness quiz and get a personalised supplement recommendation.</p>
+  <a href="#" class="btn-white">Take the Free Quiz</a>
+</div>
+
+<footer class="v2">
+  <div class="footer-brand-v2">
+    <a href="#" class="footer-logo-v2">Winpowr</a>
+    <p>Science-backed supplements built for people who take their wellness as seriously as their work.</p>
+  </div>
+  <div class="fcol"><h4>Products</h4><ul><li><a href="#">DiaControl</a></li><li><a href="#">Glutathione</a></li><li><a href="#">Biotin Complex</a></li><li><a href="#">Fish Oil</a></li></ul></div>
+  <div class="fcol"><h4>Company</h4><ul><li><a href="#">Our Science</a></li><li><a href="#">Expert Panel</a></li><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li></ul></div>
+  <div class="fcol"><h4>Support</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Privacy</a></li></ul></div>
+</footer>
+<div class="footer-bottom-v2">
+  <p>© 2026 Winpowr. All rights reserved.</p>
+  <div class="cert-strip"><div class="cert-v2">FSSAI</div><div class="cert-v2">GMP</div><div class="cert-v2">ISO 9001</div></div>
+</div>
+
+</body>
+</html>
